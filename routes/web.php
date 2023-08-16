@@ -30,6 +30,10 @@ Route::post("login",[LoginController::class,"loginp"])->name("admin.loginp");
 
 Route::get("logout",[LoginController::class,"logoutp"])->name("admin.logoutp");
 
-Route::get('/admin', function () {
-    return view('admin.index');
-})->name("admin.index");
+
+
+Route::group(["prefix"=>"admin", "middleware"=>["IsLogin"] ], function(){
+    Route::get('/', function (){
+        return view("admin.index");
+    })->name("admin.index");
+});
